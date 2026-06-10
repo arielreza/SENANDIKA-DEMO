@@ -20,7 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Paksa selalu HTTPS — branch ini di-deploy di Railway (production)
+        // Paksa selalu HTTPS & base URL — branch ini di-deploy di Railway (production)
+        // Ini memastikan redirect()->route() dan form action 100% aman
         URL::forceScheme('https');
+        URL::forceRootUrl('https://senandika-demo-production.up.railway.app');
     }
 }
