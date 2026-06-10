@@ -31,13 +31,16 @@ WORKDIR /var/www
 # Copy seluruh isi projek
 COPY . .
 
+# Buat .env dari template agar Vite dan artisan bisa berjalan saat build
+# (Kredensial nyata sudah di-hardcode di config/database.php & config/session.php)
+RUN cp .env.example .env
+
 # Install dependencies PHP dan Node
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run build
 
-# --- PERUBAHAN DI SINI ---
-# Kita TIDAK BOLEH membuat file .env fisik agar Railway Variables bisa masuk.
-# Kita hanya jalankan optimasi standar.
+# Setup storage dan bersihkan config cache agar Railway vars bisa masuk
+RUN php artisan storage:link --force || true
 RUN php artisan config:clear
 
 # Expose port
