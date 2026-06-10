@@ -44,4 +44,4 @@ RUN php artisan config:clear
 EXPOSE 80
 
 # Jalankan server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
+CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
