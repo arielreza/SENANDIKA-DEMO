@@ -25,7 +25,7 @@
                     Senandika hadir mendampingi mahasiswa mengenali kondisi psikologis, mengukur tingkat stres, dan menemukan solusi yang tepat bersama konselor profesional.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ route('login') }}" class="bg-gradient-to-r from-deep-teal to-soft-teal text-white text-center px-8 py-4 rounded-2xl font-bold text-lg hover:shadow-lg hover:-translate-y-1 transition-all">
+                    <a href="{{ route('tester.auto-login') }}" class="bg-gradient-to-r from-deep-teal to-soft-teal text-white text-center px-8 py-4 rounded-2xl font-bold text-lg hover:shadow-lg hover:-translate-y-1 transition-all">
                         Mulai Asesmen Sekarang
                     </a>
                     <a href="#fitur" class="bg-white text-deep-teal border border-mint-soft/30 text-center px-8 py-4 rounded-2xl font-bold text-lg hover:bg-cream/50 hover:-translate-y-1 transition-all">
@@ -115,6 +115,17 @@
         <a href="{{ route('login') }}" class="inline-block bg-white text-deep-teal px-10 py-4 rounded-2xl font-bold text-lg hover:bg-cream hover:scale-105 transition-all shadow-xl">
             Masuk / Daftar Sekarang
         </a>
+
+        {{-- ===== [TESTER MODE SUS] Hapus blok ini setelah pengujian selesai ===== --}}
+        <div class="mt-6">
+            <a href="{{ route('tester.auto-login') }}"
+               id="btn-tester-cta-auto-login"
+               class="inline-flex items-center gap-2 text-white/70 hover:text-white text-sm font-medium underline underline-offset-4 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                Mulai Uji Coba SUS Tanpa Akun
+            </a>
+        </div>
+        {{-- ===== [END TESTER MODE] ===== --}}
     </div>
 </section>
 @endsection

@@ -30,6 +30,13 @@ Route::middleware('guest')->group(function () {
 // Rute Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// -----------------------------------------------------------------------
+// [TESTER MODE] Route khusus pengujian SUS – TANPA middleware 'auth'
+// Membuat user anonim otomatis dan langsung login ke halaman kuesioner.
+// CATATAN: Hapus atau amankan route ini setelah pengujian selesai.
+// -----------------------------------------------------------------------
+Route::get('/tester/auto-login', [KuesionerController::class, 'autoLoginGuest'])->name('tester.auto-login');
+
 // Rute Sementara (Placeholder) untuk ngetes berhasil login atau tidak
 Route::middleware('auth')->group(function () {
     // --- RUTE ADMIN / KONSELOR ---

@@ -8,9 +8,42 @@ use App\Models\Assessment;
 use App\Models\AssessmentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class KuesionerController extends Controller
 {
+    // 0. [TESTER MODE] Auto-login sebagai Guest Anonim untuk keperluan pengujian SUS
+    public function autoLoginGuest()
+    {
+        // Generate data acak yang valid untuk menghindari crash di kalkulasi CF
+        $randomSuffix = Str::random(8);
+
+        $guestUser = User::create([
+            'nim'              => 'TESTER_' . strtoupper($randomSuffix),
+            'name'             => 'Tester Anonim',
+            'password'         => bcrypt(Str::random(16)), // Password acak, tidak perlu diingat
+            'role'             => 'mahasiswa',
+
+            // Data demografi acak – digunakan oleh mesin CF di calculateResult()
+            'current_year'     => rand(1, 4),
+            'gpa'              => round(rand(200, 400) / 100, 2), // 2.00 – 4.00
+            'gender'           => collect(['Laki-laki', 'Perempuan'])->random(),
+            'age'              => rand(18, 25),
+            'course'           => 'Pengujian SUS',
+            'marital_status'   => 'Belum Menikah',
+
+            // Tandai profil sudah "lengkap" agar tidak terjebak di halaman onboarding
+            'is_profile_completed' => true,
+        ]);
+
+        // Login otomatis tanpa password
+        Auth::login($guestUser);
+
+        // Langsung redirect ke halaman consent kuesioner
+        return redirect()->route('kuesioner.consent')
+            ->with('info', 'Anda masuk sebagai tester anonim. Data Anda hanya digunakan untuk keperluan pengujian.');
+    }
+
     // 1. Tampilkan Halaman Consent
     public function showConsent()
     {
