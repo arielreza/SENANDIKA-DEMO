@@ -192,7 +192,7 @@
             </div>
 
             <!-- Answer Form -->
-            <form action="{{ route('kuesioner.answer') }}" method="POST" id="answerForm">
+            <form action="{{ route('kuesioner.answer', absolute: false) }}" method="POST" id="answerForm">
                 @csrf
                 <input type="hidden" name="symptom_id" value="{{ $currentSymptom->id }}">
                 <input type="hidden" name="cf_user" id="selectedValue" value="">
@@ -264,7 +264,7 @@
 
             <!-- Previous Button -->
             @if($currentNumber > 1)
-            <form action="{{ route('kuesioner.previous') }}" method="POST" class="mt-3">
+            <form action="{{ route('kuesioner.previous', absolute: false) }}" method="POST" class="mt-3">
                 @csrf
                 <button type="submit"
                     class="w-full flex items-center justify-center gap-2 text-mint-soft hover:text-deep-teal font-semibold py-3 px-6 rounded-2xl border-2 border-mint-soft/25 hover:border-deep-teal/30 bg-transparent hover:bg-white/40 transition-all text-sm">

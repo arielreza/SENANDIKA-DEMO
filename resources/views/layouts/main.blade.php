@@ -65,7 +65,7 @@
                 <div class="flex items-center gap-4">
                     @auth
                         <span class="text-sm font-semibold text-deep-teal hidden md:block">Halo, {{ Auth::user()->name }}</span>
-                        <form action="{{ route('logout') }}" method="POST">
+                        <form action="{{ route('logout', absolute: false) }}" method="POST">
                             @csrf
                             <button type="submit" class="bg-mint-soft/20 text-deep-teal px-5 py-2.5 rounded-xl font-bold hover:bg-mint-soft/40 transition-colors">Keluar</button>
                         </form>

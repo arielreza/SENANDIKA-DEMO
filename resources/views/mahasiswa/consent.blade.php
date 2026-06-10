@@ -47,7 +47,7 @@
             </ul>
         </div>
 
-        <form action="{{ route('kuesioner.accept') }}" method="POST">
+        <form action="{{ route('kuesioner.accept', absolute: false) }}" method="POST">
             @csrf
             <div class="flex items-start gap-3 mb-8 bg-white/40 p-4 rounded-xl border border-white/50">
                 <input type="checkbox" id="agree" required class="mt-1 w-5 h-5 accent-soft-teal cursor-pointer">
