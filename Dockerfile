@@ -1,0 +1,41 @@
+FROM php:8.3-fpm
+
+# Install system dependencies bawaan Debian
+RUN apt-get update && apt-get install -y \
+    nginx \
+    supervisor \
+    mariadb-client \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    curl
+
+# Install nodejs dan npm untuk compiler Vite
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql zip
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www
+
+# Copy seluruh isi projek
+COPY . .
+
+# Install dependencies PHP dan Node
+RUN composer install --no-dev --optimize-autoloader
+RUN npm install && npm run build
+
+# Setup configuration
+RUN cp .env.example .env && php artisan key:generate
+
+# Expose port
+EXPOSE 80
+
+# Jalankan server
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
