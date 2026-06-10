@@ -35,8 +35,10 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run build
 
-# Setup configuration
-RUN cp .env.example .env && php artisan key:generate
+# --- PERUBAHAN DI SINI ---
+# Kita TIDAK BOLEH membuat file .env fisik agar Railway Variables bisa masuk.
+# Kita hanya jalankan optimasi standar.
+RUN php artisan config:clear
 
 # Expose port
 EXPOSE 80
