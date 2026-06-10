@@ -20,9 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Memaksa semua URL generator menggunakan HTTPS di production / Railway
-        if (config('app.env') === 'production' || isset($_SERVER['HTTPS']) || isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            URL::forceScheme('https');
-        }
+        // Paksa selalu HTTPS — branch ini di-deploy di Railway (production)
+        URL::forceScheme('https');
     }
 }
